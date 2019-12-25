@@ -1,4 +1,9 @@
 #pragma once
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
 
 bool inlimit(int since, int until, int input);
 
@@ -11,8 +16,8 @@ private:
 	int last_answer;
 	int currentrow;
 	int currentcolumn;
-	int** tile_display;
-	char** tile_raw;
+	std::vector<std::vector<int>> tile_display;
+	std::vector<std::vector<char>> tile_raw;
 	bool hide;
 	bool end;
 	std::string winner;

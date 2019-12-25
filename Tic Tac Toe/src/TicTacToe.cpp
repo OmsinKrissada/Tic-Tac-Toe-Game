@@ -1,6 +1,3 @@
-#include <iostream>
-#include <string>
-#include <iomanip>
 #include "TicTacToe.h"
 
 bool inlimit(int since, int until, int input)
@@ -8,16 +5,10 @@ bool inlimit(int since, int until, int input)
 	return (input >= since && input <= until) ? true : false;
 }
 
-void toggle(bool& boolean)
-{
-	if (boolean)
-		boolean = false;
-	else boolean = true;
-}
-
 TicTacToe::TicTacToe(int board_width)
 	: board_width(board_width), board_area(board_width * board_width), end(false), round(1), hide(false), winner("NULL")
 {
+	/*
 	tile_display = new int*[board_width]; // Dynamic Allocation for the board
 	for (int row = 0; row < board_width; row++)
 		tile_display[row] = new int[board_width];
@@ -33,13 +24,23 @@ TicTacToe::TicTacToe(int board_width)
 	for (int row = 0; row < board_width; row++)
 		for (int column = 0; column < board_width; column++)// set all tiles on the board with numbers
 			tile_raw[row][column] = '\0';
+			*/
+	tile_display = std::vector<std::vector<int>>(board_width, std::vector<int>(board_width));
+	for (int row = 0; row < board_width; row++) {
+		for (int column = 0; column < board_width; column++) {
+			tile_display[row][column] = column + row * board_width + 1;
+		}
+	}
+	tile_raw = std::vector<std::vector<char>>(board_width, std::vector<char>(board_width, '\0'));
 }
 
 TicTacToe::~TicTacToe()
 {
+	/*
 	for (int i = 0; i < board_width; i++)
 		delete[] tile_display[i];
 	delete[] tile_display;
+	*/
 }
 
 void TicTacToe::setPlayer1_name(std::string name)
@@ -92,7 +93,7 @@ void TicTacToe::run()
 		currentrow = (last_answer - 1) / board_width;
 		currentcolumn = (last_answer - 1) % board_width;
 		if (last_answer == 0) {
-			toggle(hide);
+			hide = !hide;
 			system("cls");
 			ask_message = "Answer";
 			continue;
